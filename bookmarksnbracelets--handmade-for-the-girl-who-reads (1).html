@@ -1,0 +1,2030 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookmarksNbracelets — Handmade for the Girl Who Reads</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,900;1,400;1,600&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    /* =============================================
+       CSS CUSTOM PROPERTIES
+    ============================================= */
+    :root {
+      --primary: #C2410C;
+      --secondary: #FEF3C7;
+      --accent: #4D7C60;
+      --warm-cream: #F5EFE6;
+      --ink-brown: #2C1810;
+      --dusty-rose: #C4846A;
+      --sage: #8A9E7F;
+      --parchment: #EDE0CC;
+      --white: #ffffff;
+      --shadow-ink: rgba(44, 24, 16, 0.12);
+      --shadow-primary: rgba(194, 65, 12, 0.2);
+      --shadow-accent: rgba(77, 124, 96, 0.2);
+    }
+
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      line-height: 1.75;
+      color: var(--ink-brown);
+      background-color: var(--warm-cream);
+      overflow-x: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* =============================================
+       EYEBROW
+    ============================================= */
+    .eyebrow {
+      display: block;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    /* =============================================
+       SCROLL ANIMATIONS
+    ============================================= */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+
+    .animate-on-scroll.slide-left {
+      transform: translateX(-30px);
+    }
+
+    .animate-on-scroll.slide-right {
+      transform: translateX(30px);
+    }
+
+    .animate-on-scroll.fade-only {
+      transform: none;
+    }
+
+    .animate-on-scroll.is-visible {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+
+    /* =============================================
+       NAVIGATION
+    ============================================= */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 4rem;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .nav.scrolled {
+      background: rgba(245, 239, 230, 0.95);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px var(--shadow-ink);
+    }
+
+    .nav__logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 1.35rem;
+      color: var(--ink-brown);
+      letter-spacing: -0.01em;
+    }
+
+    .nav__logo span {
+      color: var(--primary);
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav__links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--ink-brown);
+      transition: color 0.2s ease;
+    }
+
+    .nav__links a:hover {
+      color: var(--primary);
+    }
+
+    .nav__cta {
+      background: var(--primary);
+      color: var(--white) !important;
+      padding: 0.6rem 1.5rem;
+      border-radius: 50px;
+      transition: background 0.2s ease, letter-spacing 0.2s ease, box-shadow 0.2s ease !important;
+    }
+
+    .nav__cta:hover {
+      background: var(--ink-brown) !important;
+      letter-spacing: 0.08em !important;
+      box-shadow: 0 4px 16px var(--shadow-primary);
+    }
+
+    .nav__hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .nav__hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--ink-brown);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .nav__mobile {
+      display: none;
+      position: fixed;
+      top: 70px;
+      left: 0;
+      right: 0;
+      background: rgba(245, 239, 230, 0.98);
+      backdrop-filter: blur(12px);
+      padding: 2rem;
+      z-index: 999;
+      flex-direction: column;
+      gap: 1.5rem;
+      box-shadow: 0 8px 30px var(--shadow-ink);
+    }
+
+    .nav__mobile.open {
+      display: flex;
+    }
+
+    .nav__mobile a {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--ink-brown);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--parchment);
+    }
+
+    /* =============================================
+       HERO SECTION
+    ============================================= */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: visible;
+    }
+
+    .hero__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(44, 24, 16, 0.72) 0%,
+        rgba(44, 24, 16, 0.3) 50%,
+        rgba(44, 24, 16, 0.1) 100%
+      );
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      padding: 5rem 4rem;
+      max-width: 780px;
+      opacity: 0;
+      animation: heroFadeIn 0.9s ease-out 0.3s forwards;
+    }
+
+    @keyframes heroFadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(254, 243, 199, 0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(254, 243, 199, 0.3);
+      color: var(--secondary);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero__tag i {
+      color: var(--secondary);
+      font-size: 0.7rem;
+    }
+
+    .hero__headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero__headline em {
+      font-style: italic;
+      color: var(--secondary);
+    }
+
+    .hero__sub {
+      font-size: 1.125rem;
+      font-weight: 300;
+      color: rgba(254, 243, 199, 0.9);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero__actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2rem;
+      border-radius: 50px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+      box-shadow: 0 4px 20px var(--shadow-primary);
+    }
+
+    .btn-primary:hover {
+      background: var(--ink-brown);
+      border-color: var(--ink-brown);
+      letter-spacing: 0.08em;
+      box-shadow: 0 8px 30px rgba(44, 24, 16, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--white);
+      letter-spacing: 0.06em;
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: var(--white);
+      border-color: var(--accent);
+      box-shadow: 0 4px 20px var(--shadow-accent);
+    }
+
+    .btn-accent:hover {
+      background: #3d6350;
+      letter-spacing: 0.08em;
+      box-shadow: 0 8px 30px var(--shadow-accent);
+    }
+
+    .hero__scroll {
+      position: absolute;
+      bottom: 2rem;
+      right: 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      animation: scrollBounce 2s infinite;
+    }
+
+    .hero__scroll i {
+      font-size: 1rem;
+    }
+
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* =============================================
+       MARQUEE TICKER
+    ============================================= */
+    .marquee-band {
+      background: var(--primary);
+      padding: 0.875rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      animation: marqueeScroll 28s linear infinite;
+    }
+
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      padding: 0 2.5rem;
+    }
+
+    .marquee-item i {
+      color: rgba(254, 243, 199, 0.6);
+      font-size: 0.6rem;
+    }
+
+    @keyframes marqueeScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* =============================================
+       CLIP PATH DIVIDER
+    ============================================= */
+    .clip-top {
+      clip-path: polygon(0 6%, 100% 0%, 100% 100%, 0% 100%);
+      margin-top: -4rem;
+    }
+
+    .clip-bottom {
+      clip-path: polygon(0 0, 100% 0, 100% 94%, 0 100%);
+    }
+
+    /* =============================================
+       SECTION: THE COLLECTION
+    ============================================= */
+    .collection {
+      background: var(--warm-cream);
+      padding: 7rem 4rem 5rem;
+    }
+
+    .collection__header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: end;
+      margin-bottom: 3.5rem;
+    }
+
+    .collection__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--ink-brown);
+      line-height: 1.2;
+    }
+
+    .collection__title em {
+      font-style: italic;
+      color: var(--primary);
+    }
+
+    .collection__desc {
+      font-size: 1rem;
+      font-weight: 300;
+      color: #5a4a3f;
+      line-height: 1.75;
+      padding-bottom: 0.5rem;
+    }
+
+    .collection__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+
+    /* FEATURED CARD — asymmetric, spans 2 rows */
+    .collection__card {
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--parchment);
+      box-shadow: 0 4px 20px var(--shadow-ink);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+    }
+
+    .collection__card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(44, 24, 16, 0.15);
+    }
+
+    .collection__card.featured {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .collection__card-img {
+      overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+
+    .collection__card.featured .collection__card-img {
+      aspect-ratio: auto;
+    }
+
+    .collection__card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease, filter 0.4s ease;
+    }
+
+    .collection__card:hover .collection__card-img img {
+      transform: scale(1.05);
+      filter: saturate(1.15);
+    }
+
+    .collection__card-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .collection__card-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .collection__card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--ink-brown);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.01em;
+    }
+
+    .collection__card-desc {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: #6b5346;
+      line-height: 1.65;
+      margin-bottom: 1rem;
+    }
+
+    .collection__card-price {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    /* GLASS CARD */
+    .glass-card {
+      background: rgba(254, 243, 199, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(254, 243, 199, 0.6);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 8px 32px rgba(44, 24, 16, 0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 0.75rem;
+    }
+
+    .glass-card i {
+      font-size: 2rem;
+      color: var(--accent);
+    }
+
+    .glass-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--ink-brown);
+    }
+
+    .glass-card p {
+      font-size: 0.875rem;
+      font-weight: 300;
+      color: #6b5346;
+    }
+
+    .features-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    /* =============================================
+       STORY SECTION
+    ============================================= */
+    .story {
+      background: var(--parchment);
+      padding: 7rem 4rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .story::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: var(--parchment);
+      clip-path: polygon(0 100%, 100% 0, 100% 100%);
+    }
+
+    .story__blob {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: rgba(194, 65, 12, 0.06);
+      border-radius: 60% 40% 70% 30% / 50% 60% 40% 70%;
+      top: 10%;
+      right: -100px;
+      pointer-events: none;
+    }
+
+    .story__blob-2 {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: rgba(77, 124, 96, 0.07);
+      border-radius: 30% 70% 60% 40% / 40% 50% 70% 60%;
+      bottom: 5%;
+      left: -60px;
+      pointer-events: none;
+    }
+
+    .story__inner {
+      display: flex;
+      gap: 5rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .story__image-wrap {
+      flex: 0 0 45%;
+      position: relative;
+    }
+
+    .story__image-main {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 16px 48px var(--shadow-ink);
+      aspect-ratio: 3/4;
+    }
+
+    .story__image-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .story__image-main:hover img {
+      transform: scale(1.05);
+    }
+
+    .story__image-badge {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      background: var(--primary);
+      color: var(--white);
+      border-radius: 50%;
+      width: 110px;
+      height: 110px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.3;
+      box-shadow: 0 8px 24px var(--shadow-primary);
+      animation: rotateBadge 10s linear infinite;
+    }
+
+    @keyframes rotateBadge {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .story__image-badge i {
+      font-size: 1.1rem;
+      animation: rotateBadge 10s linear infinite reverse;
+    }
+
+    .story__image-float {
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      width: 130px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px var(--shadow-ink);
+      border: 4px solid var(--warm-cream);
+    }
+
+    .story__content {
+      flex: 1;
+    }
+
+    .story__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--ink-brown);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .story__title em {
+      font-style: italic;
+      color: var(--primary);
+    }
+
+    .story__text {
+      font-size: 1rem;
+      font-weight: 300;
+      color: #5a4a3f;
+      line-height: 1.85;
+      margin-bottom: 1.25rem;
+    }
+
+    .story__pullquote {
+      border-left: 3px solid var(--primary);
+      padding: 1rem 1.5rem;
+      margin: 2rem 0;
+      background: rgba(194, 65, 12, 0.05);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .story__pullquote p {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--primary);
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    .story__values {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .story__value {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--ink-brown);
+    }
+
+    .story__value i {
+      color: var(--accent);
+    }
+
+    /* =============================================
+       CONTACT SECTION
+    ============================================= */
+    .contact {
+      background: var(--warm-cream);
+      padding: 7rem 4rem 5rem;
+      position: relative;
+    }
+
+    .contact::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: var(--parchment);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 0);
+    }
+
+    .contact__inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .contact__info {
+      padding-top: 1rem;
+    }
+
+    .contact__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--ink-brown);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .contact__title em {
+      font-style: italic;
+      color: var(--primary);
+    }
+
+    .contact__text {
+      font-size: 1rem;
+      font-weight: 300;
+      color: #5a4a3f;
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+
+    .contact__detail {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--parchment);
+    }
+
+    .contact__detail-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(194, 65, 12, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact__detail-icon i {
+      color: var(--primary);
+      font-size: 0.9rem;
+    }
+
+    .contact__detail-text {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--ink-brown);
+    }
+
+    .contact__detail-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--sage);
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    .contact__social {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .contact__social-link {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--parchment);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-brown);
+      font-size: 1rem;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 2px 8px var(--shadow-ink);
+    }
+
+    .contact__social-link:hover {
+      background: var(--primary);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* =============================================
+       CONTACT FORM
+    ============================================= */
+    .form-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 8px 40px var(--shadow-ink);
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 1.75rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 1.25rem 1rem 0.6rem;
+      border: 2px solid var(--parchment);
+      border-radius: 10px;
+      background: var(--warm-cream);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: var(--ink-brown);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      appearance: none;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(194, 65, 12, 0.1);
+    }
+
+    .form-group label {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #9a8070;
+      pointer-events: none;
+      transition: all 0.2s ease;
+    }
+
+    .form-group textarea ~ label {
+      top: 1.25rem;
+      transform: none;
+    }
+
+    .form-group input:focus ~ label,
+    .form-group input:not(:placeholder-shown) ~ label,
+    .form-group textarea:focus ~ label,
+    .form-group textarea:not(:placeholder-shown) ~ label,
+    .form-group select:focus ~ label,
+    .form-group select:not([value=""]) ~ label {
+      top: 0.5rem;
+      transform: none;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 16px var(--shadow-primary);
+    }
+
+    .form-submit:hover {
+      background: var(--ink-brown);
+      letter-spacing: 0.14em;
+      box-shadow: 0 8px 24px rgba(44, 24, 16, 0.3);
+    }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .form-success i {
+      font-size: 3rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .form-success h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--ink-brown);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-success p {
+      color: #6b5346;
+      font-size: 0.9rem;
+      font-weight: 300;
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .footer {
+      background: var(--ink-brown);
+      padding: 4rem 4rem 2rem;
+    }
+
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer__logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+    }
+
+    .footer__logo span {
+      color: var(--secondary);
+    }
+
+    .footer__tagline {
+      font-size: 0.875rem;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer__social {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .footer__social-link {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.875rem;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .footer__social-link:hover {
+      background: var(--primary);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    .footer__col h4 {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      margin-bottom: 1.25rem;
+    }
+
+    .footer__links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer__links a {
+      font-size: 0.875rem;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.5);
+      transition: color 0.2s ease;
+    }
+
+    .footer__links a:hover {
+      color: var(--secondary);
+    }
+
+    .footer__newsletter-form {
+      display: flex;
+      gap: 0;
+      border-radius: 50px;
+      overflow: visible;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    }
+
+    .footer__newsletter-input {
+      flex: 1;
+      padding: 0.75rem 1.25rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    .footer__newsletter-input::placeholder {
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .footer__newsletter-btn {
+      padding: 0.75rem 1.25rem;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background 0.2s ease;
+    }
+
+    .footer__newsletter-btn:hover {
+      background: var(--dusty-rose);
+    }
+
+    .footer__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer__copy {
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .footer__legal {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer__legal a {
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.35);
+      transition: color 0.2s ease;
+    }
+
+    .footer__legal a:hover {
+      color: var(--secondary);
+    }
+
+    /* =============================================
+       RESPONSIVE: 1024px
+    ============================================= */
+    @media (max-width: 1024px) {
+      .nav {
+        padding: 1.25rem 2rem;
+      }
+
+      .hero__content {
+        padding: 5rem 2rem;
+      }
+
+      .hero__scroll {
+        right: 2rem;
+      }
+
+      .collection {
+        padding: 6rem 2rem 4rem;
+      }
+
+      .collection__header {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .story {
+        padding: 6rem 2rem 4rem;
+      }
+
+      .story__inner {
+        gap: 3rem;
+      }
+
+      .contact {
+        padding: 6rem 2rem 4rem;
+      }
+
+      .contact__inner {
+        gap: 3rem;
+      }
+
+      .footer {
+        padding: 3.5rem 2rem 2rem;
+      }
+
+      .footer__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+    }
+
+    /* =============================================
+       RESPONSIVE: 768px
+    ============================================= */
+    @media (max-width: 768px) {
+      .nav__links {
+        display: none;
+      }
+
+      .nav__hamburger {
+        display: flex;
+      }
+
+      .hero__content {
+        padding: 3rem 1.5rem;
+        max-width: 100%;
+      }
+
+      .hero__headline {
+        font-size: clamp(2.5rem, 10vw, 3.5rem);
+      }
+
+      .collection {
+        padding: 5rem 1.5rem 3rem;
+      }
+
+      .collection__card.featured {
+        grid-column: span 1;
+        grid-template-columns: 1fr;
+      }
+
+      .collection__card.featured .collection__card-img {
+        aspect-ratio: 16/9;
+      }
+
+      .features-row {
+        grid-template-columns: 1fr;
+      }
+
+      .story {
+        padding: 5rem 1.5rem 3rem;
+      }
+
+      .story__inner {
+        flex-direction: column;
+        gap: 2.5rem;
+      }
+
+      .story__image-wrap {
+        flex: none;
+        width: 100%;
+      }
+
+      .story__image-main {
+        aspect-ratio: 4/3;
+      }
+
+      .story__image-badge {
+        bottom: -15px;
+        right: -10px;
+        width: 90px;
+        height: 90px;
+        font-size: 0.6rem;
+      }
+
+      .contact {
+        padding: 5rem 1.5rem 3rem;
+      }
+
+      .contact__inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .footer {
+        padding: 3rem 1.5rem 2rem;
+      }
+
+      .footer__grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .footer__bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    /* =============================================
+       RESPONSIVE: 480px
+    ============================================= */
+    @media (max-width: 480px) {
+      .hero__actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .collection__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .story__values {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .hero__scroll {
+        display: none;
+      }
+
+      .contact__social {
+        gap: 0.75rem;
+      }
+    }
+  
+/* Stack42 auto-fix: form field alignment */
+.form__grid > *, .form-grid > *, form .grid > * {
+  align-self: end;
+}
+</style>
+</head>
+<body>
+
+  <!-- =============================
+       NAVIGATION
+  ============================= -->
+  <nav class="nav" id="mainNav">
+    <div class="nav__logo">Bookmarks<span>N</span>bracelets</div>
+    <ul class="nav__links">
+      <li><a href="#collection">Shop</a></li>
+      <li><a href="#story">Our Story</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#contact" class="nav__cta">Order Now</a></li>
+    </ul>
+    <button class="nav__hamburger" id="hamburger" aria-label="Open menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="nav__mobile" id="mobileNav">
+    <a href="#collection" onclick="closeMobileNav()">Shop the Collection</a>
+    <a href="#story" onclick="closeMobileNav()">Our Story</a>
+    <a href="#contact" onclick="closeMobileNav()">Contact</a>
+    <a href="#contact" onclick="closeMobileNav()" class="btn btn-primary" style="text-align:center;">Order Now</a>
+  </div>
+
+  <!-- =============================
+       HERO
+  ============================= -->
+  <section class="hero">
+    <img src="https://images.unsplash.com/photo-1509528640600-be205362320b?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w4MzEyMjJ8MHwxfHNlYXJjaHwxfHxzdGF0aW9uZXJ5JTIwZmxhdGxheXxlbnwwfDB8fHwxNzgyNTg5NDMyfDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="BookmarksNbracelets - Stationery and handmade accessories" class="hero__img">
+    <div class="hero__overlay"></div>
+
+    <div class="hero__content">
+      <div class="hero__tag">
+        <i class="fas fa-star"></i>
+        100% Handmade &amp; Online
+      </div>
+
+      <h1 class="hero__headline">
+        Made for the girl<br>
+        who <em>reads</em> and<br>
+        the girl who<br>
+        <em>accessorizes.</em>
+      </h1>
+
+      <p class="hero__sub">
+        Handcrafted bookmarks and matching bracelets — because why choose between a good book and a great accessory?
+      </p>
+
+      <div class="hero__actions">
+        <a href="#collection" class="btn btn-primary">
+          <i class="fas fa-bookmark"></i>
+          Shop the Collection
+        </a>
+        <a href="#story" class="btn btn-outline">
+          <i class="fas fa-heart"></i>
+          Our Story
+        </a>
+      </div>
+    </div>
+
+    <div class="hero__scroll">
+      <span>Scroll</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- =============================
+       MARQUEE TICKER
+  ============================= -->
+  <div class="marquee-band">
+    <div class="marquee-track">
+      <!-- First set -->
+      <span class="marquee-item"><i class="fas fa-circle"></i> Handmade with Love</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> Bookmarks &amp; Bracelets</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> Custom Orders Welcome</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> 100% Online Shop</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> Matching Sets Available</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> Gift for Book Lovers</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> Every Piece is Unique</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> Ships Nationwide</span>
+      <!-- Duplicate for seamless loop -->
+      <span class="marquee-item"><i class="fas fa-circle"></i> Handmade with Love</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> Bookmarks &amp; Bracelets</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> Custom Orders Welcome</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> 100% Online Shop</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> Matching Sets Available</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> Gift for Book Lovers</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> Every Piece is Unique</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> Ships Nationwide</span>
+    </div>
+  </div>
+
+  <!-- =============================
+       SECTION 01 — THE COLLECTION
+  ============================= -->
+  <section class="collection" id="collection">
+
+    <div class="collection__header">
+      <div class="animate-on-scroll">
+        <span class="eyebrow">The Collection</span>
+        <h2 class="collection__title">
+          Bookmarks, Bracelets<br>&amp; <em>Matching Sets</em>
+        </h2>
+      </div>
+      <p class="collection__desc animate-on-scroll delay-2">
+        Every piece is made by hand, with intention. Whether you want a bookmark to mark your favorite chapter or a bracelet to wear every day, there's something here for every reader, every wrist.
+      </p>
+    </div>
+
+    <div class="collection__grid">
+
+      <!-- FEATURED CARD -->
+      <article class="collection__card featured animate-on-scroll delay-1">
+        <div class="collection__card-img">
+          <img src="https://images.unsplash.com/photo-1686161238563-71781eae1a58?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w4MzEyMjJ8MHwxfHNlYXJjaHwxfHxib29rbWFya3N8ZW58MHwwfHx8MTc4MjU4OTQzMnww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Handcrafted bookmarks collection" loading="lazy">
+        </div>
+        <div class="collection__card-body">
+          <span class="collection__card-tag">Best Seller</span>
+          <h3 class="collection__card-title">Signature Bookmark Sets</h3>
+          <p class="collection__card-desc">
+            Tasseled, beaded, and beautifully made. Each bookmark is cut, finished, and decorated by hand so no two are exactly alike. That's the whole point.
+          </p>
+          <div class="collection__card-price">Starting at $8</div>
+          <a href="#contact" class="btn btn-primary" style="margin-top:1.25rem;display:inline-flex;">
+            <i class="fas fa-shopping-bag"></i> Order Yours
+          </a>
+        </div>
+      </article>
+
+      <!-- CARD 2 -->
+      <article class="collection__card animate-on-scroll delay-2">
+        <div class="collection__card-img">
+          <img src="https://images.unsplash.com/photo-1646070107254-3713cec279c1?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w4MzEyMjJ8MHwxfHNlYXJjaHwxfHxCZWFkZWQlMjBicmFjZWxldHMlMjB8ZW58MHwwfDF8fDE3ODI1ODk4MTR8MA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Handmade bracelets" loading="lazy">
+        </div>
+        <div class="collection__card-body">
+          <span class="collection__card-tag">Bracelets</span>
+          <h3 class="collection__card-title">Everyday Wrist Stack</h3>
+          <p class="collection__card-desc">Soft, wearable, and made to match your bookmark.</p>
+          <div class="collection__card-price">Starting at $10</div>
+        </div>
+      </article>
+
+      <!-- CARD 3 -->
+      <article class="collection__card animate-on-scroll delay-3">
+        <div class="collection__card-img">
+          <img src="https://images.unsplash.com/photo-1641946902113-eabdbe28058a?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w4MzEyMjJ8MHwxfHNlYXJjaHw4fHxwb255JTIwYmVhZCUyMGJyYWNlbGV0fGVufDB8MHwxfHwxNzgyNTkxOTQ2fDA&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Matching bracelet sets" loading="lazy">
+        </div>
+        <div class="collection__card-body">
+          <span class="collection__card-tag">Fan Favorite</span>
+          <h3 class="collection__card-title">Custom Bracelets</h3>
+          <p class="collection__card-desc" style="color: rgb(107, 83, 70) !important;">pick the colors and I'll make it just for you</p>
+          <div class="collection__card-price">Starting at $12</div>
+        </div>
+      </article>
+
+      <!-- CARD 4 — GIFT SET (Glass Card style) -->
+      <article class="collection__card animate-on-scroll delay-4">
+        <div class="collection__card-img">
+          <img src="https://images.unsplash.com/photo-1560719887-fe3105fa1e55?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w4MzEyMjJ8MHwxfHNlYXJjaHwyfHxib29rbWFya3N8ZW58MHwwfHx8MTc4MjU4OTQzMnww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Bookmark and bracelet matching set" loading="lazy">
+        </div>
+        <div class="collection__card-body">
+          <span class="collection__card-tag">Most Gifted</span>
+          <h3 class="collection__card-title">The Matching Set</h3>
+          <p class="collection__card-desc">One bookmark. One bracelet. One very happy reader.</p>
+          <div class="collection__card-price">Starting at $18</div>
+        </div>
+      </article>
+
+      <!-- CARD 5 -->
+      <article class="collection__card animate-on-scroll delay-3">
+        <div class="collection__card-img">
+          <img src="https://images.unsplash.com/photo-1624588057318-5f1b2eb81012?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w4MzEyMjJ8MHwxfHNlYXJjaHwxfHxoYW5kbWFkZSUyMGpld2Vscnl8ZW58MHwwfHx8MTc4MjU4OTQzMnww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Handmade jewelry and accessories" loading="lazy">
+        </div>
+        <div class="collection__card-body">
+          <span class="collection__card-tag">Custom Order</span>
+          <h3 class="collection__card-title">Build Your Own Set</h3>
+          <p class="collection__card-desc" style="color: rgb(107, 83, 70) !important;">Pick your colors and style. I'll make it just for you.</p>
+          <div class="collection__card-price">Custom Pricing</div>
+        </div>
+      </article>
+
+    </div><!-- end .collection__grid -->
+
+    <!-- FEATURES ROW (Glass Cards) -->
+    <div class="features-row">
+      <div class="glass-card animate-on-scroll delay-1">
+        <i class="fas fa-hands"></i>
+        <h3>100% Handmade</h3>
+        <p>Every item is made by one person — me. No factories, no shortcuts.</p>
+      </div>
+      <div class="glass-card animate-on-scroll delay-2">
+        <i class="fas fa-palette"></i>
+        <h3>Custom Colors</h3>
+        <p>Choose your palette and I'll match your bookmark to your bracelet.</p>
+      </div>
+      <div class="glass-card animate-on-scroll delay-3">
+        <i class="fas fa-gift"></i>
+        <h3>Perfect for Gifting</h3>
+        <p>Gift-ready packaging included with every order at no extra charge.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- =============================
+       MARQUEE TICKER 2
+  ============================= -->
+  <div class="marquee-band" style="background: var(--accent);">
+    <div class="marquee-track" style="animation-direction: reverse;">
+      <span class="marquee-item"><i class="fas fa-circle"></i> For the Reader in Your Life</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> Bracelet + Bookmark = Best Gift</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> Custom Orders Open</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> Small Shop. Big Heart.</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> Every Piece Made by Hand</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> For the Reader in Your Life</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> Bracelet + Bookmark = Best Gift</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> Custom Orders Open</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> Small Shop. Big Heart.</span>
+      <span class="marquee-item"><i class="fas fa-circle"></i> Every Piece Made by Hand</span>
+    </div>
+  </div>
+
+  <!-- =============================
+       SECTION 02 — THE STORY
+  ============================= -->
+  <section class="story" id="story">
+    <div class="story__blob"></div>
+    <div class="story__blob-2"></div>
+
+    <div class="story__inner">
+
+      <!-- IMAGE SIDE -->
+      <div class="story__image-wrap animate-on-scroll slide-left">
+        <div class="story__image-main">
+          <img src="https://images.unsplash.com/photo-1573227890085-12ab5d68a170?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w4MzEyMjJ8MHwxfHNlYXJjaHwyfHxoYW5kbWFkZSUyMGpld2Vscnl8ZW58MHwwfHx8MTc4MjU4OTQzMnww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Handmade jewelry process" loading="lazy">
+        </div>
+
+        <div class="story__image-float">
+          <img src="https://images.unsplash.com/photo-1581447109266-0498adb54e6e?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=jpg&amp;ixid=M3w4MzEyMjJ8MHwxfHNlYXJjaHwzfHxib29rbWFya3N8ZW58MHwwfHx8MTc4MjU4OTQzMnww&amp;ixlib=rb-4.1.0&amp;q=80&amp;w=1080" alt="Handcrafted bookmarks" loading="lazy">
+        </div>
+
+        <div class="story__image-badge">
+          <i class="fas fa-heart"></i>
+          <span>Hand<br>Made<br>Always</span>
+        </div>
+      </div>
+
+      <!-- TEXT SIDE -->
+      <div class="story__content">
+        <span class="eyebrow animate-on-scroll">The Story Behind the Shop</span>
+        <h2 class="story__title animate-on-scroll delay-1">
+          A one-woman shop<br>built on <em>books</em><br>&amp; <em>bracelets.</em>
+        </h2>
+
+        <p class="story__text animate-on-scroll delay-2">
+          Hi — I'm the whole team. BookmarksNbracelets started because I couldn't find a gift that felt personal enough for the readers in my life. So I made one. Then another. Then someone asked if they could buy one.
+        </p>
+
+        <p class="story__text animate-on-scroll delay-3">
+          Now I sit down with beads, thread, leather, and a lot of intention and make things that I'd genuinely want to keep for myself. Every order is made fresh — I don't keep a stockroom, I keep a craft table.
+        </p>
+
+        <div class="story__pullquote animate-on-scroll delay-3">
+          <p>"Every bookmark holds a story. Every bracelet holds a memory. I try to make both worth keeping."</p>
+        </div>
+
+        <div class="story__values animate-on-scroll delay-4">
+          <div class="story__value">
+            <i class="fas fa-check-circle"></i>
+            <span>Made to Order</span>
+          </div>
+          <div class="story__value">
+            <i class="fas fa-check-circle"></i>
+            <span>Fully Customizable</span>
+          </div>
+          <div class="story__value">
+            <i class="fas fa-check-circle"></i>
+            <span>Gift-Ready Packaging</span>
+          </div>
+          <div class="story__value">
+            <i class="fas fa-check-circle"></i>
+            <span>Ships Nationwide</span>
+          </div>
+        </div>
+
+        <a href="#contact" class="btn btn-accent animate-on-scroll delay-5" style="margin-top: 2rem; display: inline-flex;">
+          <i class="fas fa-envelope"></i>
+          Send Me a Message
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =============================
+       CONTACT SECTION
+  ============================= -->
+  <section class="contact" id="contact">
+
+    <div class="contact__inner">
+
+      <!-- INFO SIDE -->
+      <div class="contact__info animate-on-scroll slide-left">
+        <span class="eyebrow">Get In Touch</span>
+        <h2 class="contact__title">
+          Let's make<br>something <em>beautiful</em><br>together.
+        </h2>
+        <p class="contact__text">
+          Custom order? Question about a piece? Just want to say hi? My inbox is always open. I respond to every message personally — because this is a one-woman show.
+        </p>
+
+        <div class="contact__detail">
+          <div class="contact__detail-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="contact__detail-text">
+            <span class="contact__detail-label">Email</span>
+            <a href="mailto:mailto:hello@bookmarksnbracelets.com"></a><a href="mailto:mailto:hello@bookmarksnbracelets.com"></a><a href="mailto:mailto:hello@bookmarksnbracelets.com"></a><a href="mailto:mailto:hello@bookmarksnbracelets.com"></a><a href="mailto:mailto:hello@bookmarksnbracelets.com"></a><a href="mailto:mailto:hello@bookmarksnbracelets.com"></a><a href="mailto:hello@bookmarksnbracelets.com" style="color: rgb(44, 24, 16) !important;">bookmarksnbracelets@icloud.com</a>
+          </div>
+        </div>
+
+        <div class="contact__detail">
+          <div class="contact__detail-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="contact__detail-text">
+            <span class="contact__detail-label">Response Time</span>
+            Usually within 24 hours
+          </div>
+        </div>
+
+        <div class="contact__detail">
+          <div class="contact__detail-icon">
+            <i class="fas fa-truck"></i>
+          </div>
+          <div class="contact__detail-text">
+            <span class="contact__detail-label">Shipping</span>
+            Nationwide — 3 to 7 business days
+          </div>
+        </div>
+
+        <div class="contact__social">
+          <a href="#" class="contact__social-link" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="contact__social-link" aria-label="TikTok">
+            <i class="fab fa-tiktok"></i>
+          </a>
+          <a href="#" class="contact__social-link" aria-label="Pinterest">
+            <i class="fab fa-pinterest-p"></i>
+          </a>
+          <a href="#" class="contact__social-link" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- FORM SIDE -->
+      <div class="animate-on-scroll delay-2">
+        <div class="form-card">
+          <form id="contactForm" novalidate="">
+            <div class="form-row">
+              <div class="form-group">
+                <input type="text" id="firstName" name="firstName" placeholder=" " required="">
+                <label for="firstName">First Name</label>
+              </div>
+              <div class="form-group">
+                <input type="text" id="lastName" name="lastName" placeholder=" " required="">
+                <label for="lastName">Last Name</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <input type="email" id="email" name="email" placeholder=" " required="">
+              <label for="email">Email Address</label>
+            </div>
+
+            <div class="form-group">
+              <select id="subject" name="subject" required="">
+                <option value="" disabled="" selected=""></option>
+                <option value="custom">Custom Order Request</option>
+                <option value="matching-set">Matching Set Inquiry</option>
+                <option value="bookmark-only">Bookmark Only</option>
+                <option value="bracelet-only">Bracelet Only</option>
+                <option value="gift">Gift Order</option>
+                <option value="other">Something Else</option>
+              </select>
+              <label for="subject">What can I make for you?</label>
+            </div>
+
+            <div class="form-group">
+              <textarea id="message" name="message" placeholder=" " required=""></textarea>
+              <label for="message">Tell me about your order or question...</label>
+            </div>
+
+            <button type="submit" class="form-submit">
+              <i class="fas fa-paper-plane"></i>
+              Send My Message
+            </button>
+          </form>
+
+          <div class="form-success" id="formSuccess">
+            <i class="fas fa-check-circle"></i>
+            <h3>Message Received!</h3>
+            <p>Thank you for reaching out. I'll be in touch within 24 hours to chat about your order.</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =============================
+       FOOTER
+  ============================= -->
+  <footer class="footer">
+    <div class="footer__grid">
+
+      <!-- Brand Col -->
+      <div>
+        <div class="footer__logo">Bookmarks<span>N</span>bracelets</div>
+        <p class="footer__tagline">
+          A 100% online, one-woman shop making handcrafted bookmarks and matching bracelets. Because great stories deserve great accessories.
+        </p>
+        <div class="footer__social">
+          <a href="#" class="footer__social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="footer__social-link" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="#" class="footer__social-link" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+          <a href="#" class="footer__social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+
+      <!-- Shop Col -->
+      <div class="footer__col">
+        <h4>Shop</h4>
+        <ul class="footer__links">
+          <li><a href="#collection">Bookmarks</a></li>
+          <li><a href="#collection">Bracelets</a></li>
+          <li><a href="#collection">Matching Sets</a></li>
+          <li><a href="#contact">Custom Orders</a></li>
+          <li><a href="#collection">Gift Sets</a></li>
+        </ul>
+      </div>
+
+      <!-- Info Col -->
+      <div class="footer__col">
+        <h4>Info</h4>
+        <ul class="footer__links">
+          <li><a href="#story">Our Story</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter Col -->
+      <div class="footer__col">
+        <h4>Stay in the Loop</h4>
+        <p style="font-size:0.85rem;font-weight:300;color:rgba(255,255,255,0.5);margin-bottom:1rem;line-height:1.6;">
+          New designs, restocks, and sales — delivered to your inbox.
+        </p>
+        <div class="footer__newsletter-form">
+          <input type="email" placeholder="your@email.com" class="footer__newsletter-input" aria-label="Email for newsletter">
+          <button class="footer__newsletter-btn" aria-label="Subscribe">
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+    </div><!-- end footer__grid -->
+
+    <div class="footer__bottom">
+      <p class="footer__copy">
+        © 2025 BookmarksNbracelets. All rights reserved. Made with
+        <i class="fas fa-heart" style="color: var(--primary); font-size: 0.7rem; margin: 0 2px;"></i>
+        by hand.
+      </p>
+      <div class="footer__legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+
+    <p data-branding="true" style="font-size: 0.75rem; opacity: 0.6; margin-top: 1rem; text-align: center;">Powered by <a href="https://stack42.ai" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">STACK42.ai</a></p>
+
+  </footer>
+
+  <!-- =============================
+       JAVASCRIPT
+  ============================= -->
+  <script>
+    // ============================================
+    // NAVIGATION SCROLL EFFECT
+    // ============================================
+    const mainNav = document.getElementById('mainNav');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        mainNav.classList.add('scrolled');
+      } else {
+        mainNav.classList.remove('scrolled');
+      }
+    });
+
+    // ============================================
+    // MOBILE NAV HAMBURGER
+    // ============================================
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    let mobileOpen = false;
+
+    hamburger.addEventListener('click', () => {
+      mobileOpen = !mobileOpen;
+      if (mobileOpen) {
+        mobileNav.classList.add('open');
+        hamburger.setAttribute('aria-label', 'Close menu');
+      } else {
+        mobileNav.classList.remove('open');
+        hamburger.setAttribute('aria-label', 'Open menu');
+      }
+    });
+
+    function closeMobileNav() {
+      mobileOpen = false;
+      mobileNav.classList.remove('open');
+    }
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (mobileOpen && !mobileNav.contains(e.target) && !hamburger.contains(e.target)) {
+        closeMobileNav();
+      }
+    });
+
+    // ============================================
+    // INTERSECTION OBSERVER — SCROLL ANIMATIONS
+    // ============================================
+    const animatedEls = document.querySelectorAll('.animate-on-scroll');
+
+    const observerOptions = {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    animatedEls.forEach(el => observer.observe(el));
+
+    // ============================================
+    // CONTACT FORM SUBMISSION
+    // ============================================
+    const contactForm = document.getElementById('contactForm');
+    const formSuccess = document.getElementById('formSuccess');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Basic validation
+      const inputs = contactForm.querySelectorAll('input[required], textarea[required], select[required]');
+      let valid = true;
+
+      inputs.forEach(input => {
+        if (!input.value.trim()) {
+          valid = false;
+          input.style.borderColor = 'var(--primary)';
+          setTimeout(() => {
+            input.style.borderColor = '';
+          }, 2000);
+        }
+      });
+
+      if (!valid) return;
+
+      // Simulate submission
+      const submitBtn = contactForm.querySelector('.form-submit');
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+      submitBtn.disabled = true;
+
+      setTimeout(() => {
+        contactForm.style.display = 'none';
+        formSuccess.style.display = 'block';
+      }, 1200);
+    });
+
+    // ============================================
+    // NEWSLETTER FORM
+    // ============================================
+    const newsletterBtn = document.querySelector('.footer__newsletter-btn');
+    const newsletterInput = document.querySelector('.footer__newsletter-input');
+
+    if (newsletterBtn && newsletterInput) {
+      newsletterBtn.addEventListener('click', () => {
+        const email = newsletterInput.value.trim();
+        if (email && email.includes('@')) {
+          newsletterBtn.innerHTML = '<i class="fas fa-check"></i>';
+          newsletterBtn.style.background = 'var(--accent)';
+          newsletterInput.value = '';
+          newsletterInput.placeholder = 'Thank you!';
+          setTimeout(() => {
+            newsletterBtn.innerHTML = '<i class="fas fa-arrow-right"></i>';
+            newsletterBtn.style.background = '';
+            newsletterInput.placeholder = '<a href="mailto:mailto:your@email.com"><a href="mailto:mailto:your@email.com"><a href="mailto:mailto:your@email.com"><a href="mailto:mailto:your@email.com"><a href="mailto:mailto:your@email.com"><a href="mailto:mailto:your@email.com"><a href="mailto:mailto:your@email.com"><a href="mailto:mailto:your@email.com"><a href="mailto:mailto:your@email.com"><a href="mailto:mailto:your@email.com"><a href="mailto:mailto:your@email.com"><a href="mailto:your@email.com">your@email.com</a></a></a></a></a></a></a></a></a></a></a></a>';
+          }, 3000);
+        }
+      });
+
+      newsletterInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') newsletterBtn.click();
+      });
+    }
+
+    // ============================================
+    // SMOOTH SCROLL FOR ANCHOR LINKS
+    // ============================================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const offset = 80;
+          const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+
+
+</body></html>
